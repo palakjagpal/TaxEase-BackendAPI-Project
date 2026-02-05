@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 //defining TaxProfile schema
 const TaxProfileSchema = new mongoose.Schema({
     //user type is ObjectId referencing User model, index for faster queries as one user can have multiple tax profiles for different years so we will index on user and assessmentYear for example: a unique compound index on (user, assessmentYear) for faster lookups
+    //reference syntax : {type : mongoose.Schema.Types.ObjectId, ref : "ReferencedModelName"}
     user : {type : mongoose.Schema.Types.ObjectId, ref : "User", required : true, index : true},
     //assessmentYear is a string representing the financial year for which the tax profile is created like "2023-2024"
     assessmentYear : {type : String, required : true}, 
