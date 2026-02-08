@@ -1,5 +1,5 @@
 // importing mongoose
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // defining Payment schema
 // this schema represents a payment transaction made by a user for purchasing a plan

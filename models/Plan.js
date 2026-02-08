@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // defining Plan schema
 // this schema represents a subscription or pricing plan offered by the system
