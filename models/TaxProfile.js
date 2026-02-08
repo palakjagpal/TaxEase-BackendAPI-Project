@@ -88,4 +88,5 @@ TaxProfileSchema.index({user : 1, assessmentYear : 1}, {unique : true});
 //the model name is "TaxProfile" and it uses the TaxProfileSchema defined above
 //this will allow us to perform CRUD operations on tax profiles in the MongoDB database
 //for example, we can create, read, update, and delete tax profiles using this model
-module.exports = mongoose.model("TaxProfile", TaxProfileSchema);
+const TaxProfile = mongoose.model("TaxProfile", TaxProfileSchema);
+export default TaxProfile;
