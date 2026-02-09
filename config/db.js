@@ -5,9 +5,9 @@ import mongoose from "mongoose";
 const connectDb = async() => {
     try{
         await mongoose.connect(process.env.MONGO_URI);  
-        console.log("MongoDB connected successfully !!");
+        console.log(" MongoDB connected successfully !!");
     }catch(error){
-        console.log("Error in connecting to MongoDB", error);
+        console.log(" Error in connecting to MongoDB", error);
         // exiting the Node.js process with a non-zero code (1)
         // this indicates that the application failed to start due to a critical error
         // prevents the app from running without a database connection

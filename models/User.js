@@ -13,11 +13,12 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase:true, trim:true  },
-    password: { type: String, required: true, maxlength:8 },
+    password: { type: String, required: true},
     role: { type : String, enum:["user","admin"], default:"user"},
     plan : {type : mongoose.Schema.Types.ObjectId, ref:"Plan", default:null},
     resetToken: String,
-    CreatedAt: { type: Date, default: Date.now },
+},{
+    timestamps: true
 });
 
 // const is a variable and AuthModel is a variable name, mongoose.model means create a model
