@@ -27,18 +27,19 @@ export const authMiddleware = (req, res, next) => {
     try{
         // Verify the token using the JWT secret key defined in environment variables        // If the token is valid, decoded will contain the payload of the token (e.g., user ID)
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
         // Attach the decoded token payload to the request object for use in subsequent middleware or route handlers
         // This allows us to access user information (like user ID) in other parts of the application
-        req.user = decoded;
+        // We set req.user to an object containing the user's ID from the decoded token. This allows us to identify the authenticated user in subsequent middleware or route handlers.
+        req.user = { _id: decoded.id };
 
         console.log("Decoded token : ", decoded);
-        next(); // Pass control to the next middleware function or route handler
+        return next(); // Pass control to the next middleware function or route handler
 
         // If the token is invalid or verification fails, an error will be thrown and caught in the catch block below
     }catch(e){
-        res.status(400).json({
+        return res.status(400).json({
             message : "Invalid token" + e.message
         });
     }
 };
-

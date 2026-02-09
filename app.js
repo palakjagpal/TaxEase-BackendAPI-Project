@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js"
 import cors from "cors";
 import connectDb from "./config/db.js";
 
@@ -23,6 +24,7 @@ connectDb();
 
 // This line sets up the Express application to use the authentication routes defined in authRoutes.js for any requests that start with "/api/auth". For example, if a client sends a request to "/api/auth/register", it will be handled by the corresponding route defined in authRoutes.js.
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 
 // Define a simple route for the root URL ("/") that sends a response indicating that the API is running. This is a basic health check endpoint to verify that the server is up and running.
 app.get("/", (req, res) => {
