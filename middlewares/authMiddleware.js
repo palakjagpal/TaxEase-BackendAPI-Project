@@ -31,7 +31,7 @@ export const authMiddleware = (req, res, next) => {
         // Attach the decoded token payload to the request object for use in subsequent middleware or route handlers
         // This allows us to access user information (like user ID) in other parts of the application
         // We set req.user to an object containing the user's ID from the decoded token. This allows us to identify the authenticated user in subsequent middleware or route handlers.
-        req.user = { _id: decoded.id };
+        req.user = decoded;
 
         console.log("Decoded token : ", decoded);
         return next(); // Pass control to the next middleware function or route handler

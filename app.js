@@ -28,7 +28,7 @@ app.use("/api/user", userRoutes);
 
 // Define a simple route for the root URL ("/") that sends a response indicating that the API is running. This is a basic health check endpoint to verify that the server is up and running.
 app.get("/", (req, res) => {
-    res.send("TaxEase Auth API is running...");
+    res.send("TaxEase API is running...");
 })
 
 // Define the port on which the server will listen for incoming requests. It first checks if a PORT environment variable is defined (which is common in production environments), and if not, it defaults to port 5000.

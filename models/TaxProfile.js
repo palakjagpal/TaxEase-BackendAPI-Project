@@ -1,6 +1,5 @@
 //importing mongoose
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 //defining TaxProfile schema
 const TaxProfileSchema = new mongoose.Schema({
     

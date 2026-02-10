@@ -6,7 +6,7 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 const userRoutes = express.Router();
 // Get user profile
 userRoutes.get("/profile", authMiddleware, getProfile);
-// Update user profile
+// Update user profilez
 userRoutes.put("/profile", authMiddleware, updateProfile);
 
 export default userRoutes;
