@@ -37,3 +37,4 @@ const documentSchema = new mongoose.Schema(
 
 const Documents = mongoose.model("Documents", documentSchema);
 export default Documents;
+
