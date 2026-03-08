@@ -6,7 +6,6 @@ import Document from "../models/Document.js";
 import TaxProfile from "../models/TaxProfile.js";
 import path from "path";
 import { uploadMiddleware } from "../middlewares/uploadMiddleware.js";
-import { resolve } from "dns";
 
 dotenv.config();
 
@@ -15,6 +14,10 @@ cloudinary.v2.config({
     api_key : process.env.CLOUDINARY_API_KEY,
     api_secret : process.env.CLOUDINARY_API_SECRET
 });
+
+/**Upload documents 
+ * post method - /api/documents
+ * **/
 
 
 export const uploadDocument = async(req,res,next) => {
@@ -42,7 +45,7 @@ export const uploadDocument = async(req,res,next) => {
         });
 
         const document = await Document.create({
-            user : req.user._id,
+            user : req.user.id,
             taxProfile : taxProfile || null,
             type : type || "other",
             originalName : req.file.originalname,
@@ -64,8 +67,83 @@ export const uploadDocument = async(req,res,next) => {
     }
 };
 
+/**
+ * GEt documents 
+ * get method - /api/documents
+ * 
+ */
+
 export const getDocuments = async(req,res) => {
     try{
+        const documents = await Document.find({user : req.user.id}).populate("taxProfile").sort({createdAt : -1});
+
+        res.json(documents);
+    }catch(error){
+        res.status(500).json({
+            message : "Failed to fetch documents"});
+    }
+};
+
+/**
+ * Update documents
+ * put method - /api/documents/:id
+ * 
+ */
+
+export const updateDocuments = async(req,res) => {
+    try{
+        const {type, taxProfile} = req.body;
         
+        const document = await Document.findOne({
+            _id : req.params.id,
+            user : req.user.id,
+        });
+        if(!document) {
+            return res.status(404).json({
+                message : "Document not found"
+            });
+        }
+        if(type) document.type = type;
+        if(taxProfile !== undefined) document.taxProfile = taxProfile;
+
+        await document.save();
+
+        res.json({
+            message : "Document updated successfully",
+            document,
+        });
+    }catch(error){
+        res.status(500).json({
+            message : "Document update failed"
+        });
     }
 }
+
+/**
+ * Delete document
+ * delete method - /api/documents/:id
+ */
+export const deleteDocument = async(req,res) =>{
+    try{
+        const document = await Document.findOne({
+            _id : req.params.id,
+            user : req.user.id,
+        });
+
+        if(!document){
+            return res.status(404).json({
+                message : "Document not found"
+            })
+        }
+
+        await cloudinary.v2.uploader.destroy(document.cloudinaryPublicId);
+        await document.deleteOne();
+        res.json({
+            message : "Document deleted successfully"
+        });
+    }catch(error){
+        res.status(500).json({
+            message : "Document deletion failed"
+        })
+    }
+};
