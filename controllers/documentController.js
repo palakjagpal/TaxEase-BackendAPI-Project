@@ -63,3 +63,9 @@ export const uploadDocument = async(req,res,next) => {
         })
     }
 };
+
+export const getDocuments = async(req,res) => {
+    try{
+        
+    }
+}
