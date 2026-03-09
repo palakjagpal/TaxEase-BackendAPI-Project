@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes.js"
 import cors from "cors";
 import connectDb from "./config/db.js";
 import documentRoutes from "./routes/documentRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ connectDb();
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/documents", documentRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Define a simple route for the root URL ("/") that sends a response indicating that the API is running. This is a basic health check endpoint to verify that the server is up and running.
 app.get("/", (req, res) => {

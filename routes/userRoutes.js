@@ -10,3 +10,10 @@ userRoutes.get("/profile", authMiddleware, getProfile);
 userRoutes.put("/profile", authMiddleware, updateProfile);
 
 export default userRoutes;
+
+/*
+POST /api/auth/register
+POST /api/auth/login
+GET  /api/user/profile
+PUT  /api/user/profile
+*/

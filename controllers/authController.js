@@ -10,7 +10,7 @@ dotenv.config();
 export const registerUser = async (req, res) => {
     try{
         // We extract the name, email, and password from the request body using destructuring assignment. This allows us to easily access these values for further processing.
-        const{ name, email, password }= req.body;
+        const{ name, email, password, role }= req.body;
         console.log("REQ BODY:", req.body);
 
         if (!name || !email || !password) {
@@ -24,7 +24,7 @@ export const registerUser = async (req, res) => {
 
         // If the user does not already exist, we proceed to hash the password using bcrypt. The bcrypt.hash function takes the plain text password and a salt rounds value (in this case, 10) to generate a secure hashed password. We then create a new user instance using the User model, passing in the name, email, and hashed password. Finally, we save the user to the database.
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({name, email, password: hashedPassword});
+        const user = await User.create({name, email, password: hashedPassword, role});
         await user.save();
 
         // After successfully registering the user, we send a response back to the client indicating that the registration was successful. We include the user's ID, name, email, role, and plan in the response, along with a JWT token generated using the generateToken utility function. This token can be used for authentication in subsequent requests.
