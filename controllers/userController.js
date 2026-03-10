@@ -7,8 +7,7 @@ export const getProfile = async (req, res) => {
         // Ensure that the user exists before returning the profile
         // If the user is not found, return a 404 error
         const user = await User.findById(req.user._id)
-            .select("-password")
-            .populate("plan");
+            .select("-password");
 
         if (!user) {
             return res.status(404).json({ error: "User not found in database" });
@@ -45,8 +44,7 @@ export const updateProfile = async ( req, res) => {
         // Return a success message along with the updated user profile in the response
         // Ensure that the updated user profile is returned in the response, excluding the password and including the plan details
         const safe = await User.findById(user._id)
-            .select("-password")
-            .populate("plan");
+            .select("-password");
 
         res.json({
             message: "Profile updated successfully",

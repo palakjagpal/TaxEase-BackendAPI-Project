@@ -3,7 +3,7 @@ import User from "../models/User.js";
 //fetching all users
 export const getAllUsers  = async(req,res) => {
     try{
-        const users = await User.find().select("-password").populate("plan");
+        const users = await User.find().select("-password");
         res.json({
             message : "All users fetched successfully", total : users.length, users
         });
